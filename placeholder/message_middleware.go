@@ -1,3 +1,18 @@
+/*
+The project doesn’t contain any middleware components that generate responses, which would typically be defined as part of the application.
+For the moment, however,this component will generate simple responses as I develop other features.
+This component produces a simple text response, which is just enough to ensure that the pipeline works as expected.
+Next, create the platform/placeholder/files folder and add to it a file named hello.json with the content shown
+	{
+		"message": "Hello from the JSON file"
+	}
+To set the location from which static files will be read, add the setting to the config.json file in the platform folder:
+	},
+	"files":
+	{
+		"path": "placeholder/files"
+	}
+*/
 package placeholder
 
 import (

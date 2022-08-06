@@ -1,3 +1,15 @@
+/* 	Create the pipeline that will process requests.
+The CreatePipeline function is the most important part of this listing because it accepts a series of components
+and connects them to produce a function that accepts a pointer to a ComponentContext struct.
+This function invokes the ProcessRequest method of the first component in the pipeline with a next argument
+ that invokes the ProcessRequest method of the next component.
+ This chain passes on the ComponentContext struct to all the components in turn, unless one of them calls the Error method.
+ Requests are processed using the ProcessRequest method, which creates the ComponentContext value and uses it to start request handling.
+
+ The definition of the component interface and pipeline are simple, but they provide a flexible foundation on which components can be written.
+ Applications can define and choose their own components, but there are some basic features that defined in the basic folder.
+*/
+
 package pipeline
 
 import (

@@ -1,3 +1,9 @@
+/*
+configure the pipeline required by the application and use it to configure and start the HTTP server.
+This is a task that will be performed by the application once I start development in Chapter 35.
+The createPipeline function creates a pipeline with the middleware components created previously.
+The Start function calls createPipeline and uses the result to configure and start the HTTP server.
+*/
 package placeholder
 
 import (
