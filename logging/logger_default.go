@@ -1,69 +1,73 @@
+// default implementation of the Logger interface
 package logging
 
 import (
-    "log"
-    "fmt"
+	"fmt"
+	"log"
 )
 
+// The DefaultLogger struct implements the Logger interface using the features provided by the log package in the standard library,
+// described in Chapter 31.
+// Each severity level is assigned a log.Logger, which means that messages can be sent to different destinations or formatted in different ways.
 type DefaultLogger struct {
-    minLevel LogLevel
-    loggers map[LogLevel]*log.Logger
-    triggerPanic bool
+	minLevel     LogLevel
+	loggers      map[LogLevel]*log.Logger
+	triggerPanic bool
 }
 
 func (l *DefaultLogger) MinLogLevel() LogLevel {
-    return l.minLevel
+	return l.minLevel
 }
 
 func (l *DefaultLogger) write(level LogLevel, message string) {
-    if (l.minLevel <= level) {
-        l.loggers[level].Output(2, message)
-    }
+	if l.minLevel <= level {
+		l.loggers[level].Output(2, message)
+	}
 }
 
 func (l *DefaultLogger) Trace(msg string) {
-    l.write(Trace, msg)
+	l.write(Trace, msg)
 }
 
 func (l *DefaultLogger) Tracef(template string, vals ...interface{}) {
-    l.write(Trace, fmt.Sprintf(template, vals...))
+	l.write(Trace, fmt.Sprintf(template, vals...))
 }
 
 func (l *DefaultLogger) Debug(msg string) {
-    l.write(Debug, msg)
+	l.write(Debug, msg)
 }
 
 func (l *DefaultLogger) Debugf(template string, vals ...interface{}) {
-    l.write(Debug, fmt.Sprintf(template, vals...))
+	l.write(Debug, fmt.Sprintf(template, vals...))
 }
 
 func (l *DefaultLogger) Info(msg string) {
-    l.write(Information, msg)
+	l.write(Information, msg)
 }
 
 func (l *DefaultLogger) Infof(template string, vals ...interface{}) {
-    l.write(Information, fmt.Sprintf(template, vals...))
+	l.write(Information, fmt.Sprintf(template, vals...))
 }
 
 func (l *DefaultLogger) Warn(msg string) {
-    l.write(Warning, msg)
+	l.write(Warning, msg)
 }
 
 func (l *DefaultLogger) Warnf(template string, vals ...interface{}) {
-    l.write(Warning, fmt.Sprintf(template, vals...))
+	l.write(Warning, fmt.Sprintf(template, vals...))
 }
 
 func (l *DefaultLogger) Panic(msg string) {
-    l.write(Fatal, msg)
-    if (l.triggerPanic) {
-        panic(msg)
-    }
+	l.write(Fatal, msg)
+	if l.triggerPanic {
+		panic(msg)
+	}
 }
 
 func (l *DefaultLogger) Panicf(template string, vals ...interface{}) {
-    formattedMsg := fmt.Sprintf(template, vals...)
-    l.write(Fatal, formattedMsg)
-    if (l.triggerPanic) {
-        panic(formattedMsg)
-    }
+	formattedMsg := fmt.Sprintf(template, vals...)
+	l.write(Fatal, formattedMsg)
+	if l.triggerPanic {
+		panic(formattedMsg)
+	}
 }

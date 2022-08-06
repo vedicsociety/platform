@@ -1,3 +1,9 @@
+// Implementation of the Configuration interface
+// The DefaultConfig struct implements the Configuration interface using a map.
+// Nested configuration sections are also expressed as maps.
+// An individual configuration setting can be requested by separating a section name from a setting name,
+// such as logging:level, or a map containing all of the settings can be requested using a section name, such as logging.
+// To define the methods that accept a default value, see a file named config_default_fallback.go to the config folder
 package config
 
 import "strings"

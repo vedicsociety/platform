@@ -6,6 +6,9 @@ import (
 	"platform/templates"
 )
 
+// The RegisterDefaultServices creates Configuration and Logger services.
+// These services are created using the AddSingleton function, which means that a single instance of the structs that implement each interface
+// will be shared by the entire application.
 func RegisterDefaultServices() {
 
 	err := AddSingleton(func() (c config.Configuration) {
