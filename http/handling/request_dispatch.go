@@ -9,11 +9,24 @@ import (
     "strings"
     "io"
     "fmt"
+    "platform/http/actionresults"    
 )
 
 func NewRouter(handlers ...HandlerEntry) *RouterComponent {
-    return &RouterComponent{ generateRoutes(handlers...) }
+    routes := generateRoutes(handlers...)
+
+    var urlGen URLGenerator
+    services.GetService(&urlGen)
+    if urlGen == nil {   
+        services.AddSingleton(func () URLGenerator {
+            return &routeUrlGenerator { routes: routes }
+        })
+    } else {
+        urlGen.AddRoutes(routes)
+    }
+    return &RouterComponent{ routes: routes }
 }
+
 
 type RouterComponent struct {
     routes []Route
@@ -45,15 +58,31 @@ func (router *RouterComponent) ProcessRequest(context *pipeline.ComponentContext
 }
 
 func (router *RouterComponent) invokeHandler(route Route, rawParams []string, 
-        context *pipeline.ComponentContext) error {
-    paramVals, err := params.GetParametersFromRequest(context.Request, 
-        route.handlerMethod, rawParams)
-    if (err == nil) {
-        structVal := reflect.New(route.handlerMethod.Type.In(0))
-        services.PopulateForContext(context.Context(), structVal.Interface())
-        paramVals = append([]reflect.Value { structVal.Elem() }, paramVals...)
-        result := route.handlerMethod.Func.Call(paramVals)
-        io.WriteString(context.ResponseWriter, fmt.Sprint(result[0].Interface()))
-    } 
-    return err
+    context *pipeline.ComponentContext) error {
+  paramVals, err := params.GetParametersFromRequest(context.Request, 
+      route.handlerMethod, rawParams)
+  if (err == nil) {
+      structVal := reflect.New(route.handlerMethod.Type.In(0))
+      services.PopulateForContext(context.Context(), structVal.Interface())
+      paramVals = append([]reflect.Value { structVal.Elem() }, paramVals...)
+      result := route.handlerMethod.Func.Call(paramVals)
+      if len(result) > 0 {
+          if action, ok := result[0].Interface().(actionresults.ActionResult); ok {
+              invoker := createInvokehandlerFunc(context.Context(), router.routes)
+              err = services.PopulateForContextWithExtras(context.Context(), 
+                  action, 
+                  map[reflect.Type]reflect.Value {
+                      reflect.TypeOf(invoker): reflect.ValueOf(invoker),
+                  })
+              if (err == nil) {
+                  err = action.Execute(&actionresults.ActionContext{ 
+                      context.Context(), context.ResponseWriter  })
+              }
+          } else {
+              io.WriteString(context.ResponseWriter, 
+                  fmt.Sprint(result[0].Interface()))
+          }
+      }
+  } 
+  return err
 }
