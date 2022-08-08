@@ -32,6 +32,14 @@ type MiddlewareComponent interface {
 	ProcessRequest(context *ComponentContext, next func(*ComponentContext))
 }
 
+// By implementing a method named ImplementsProcessRequestWithServices, components can indicate they require services.
+// It isn’t possible to include the method that requires the services in the interface
+// because each component needs a different method signature for the services it requires.
+// Instead, I am going to detect the ServicesMiddlwareComponent and then use reflection
+// to determine whether the component implements a method named ProcessRequestWithServices,
+// whose first two parameters are the same as the ProcessRequest method defined by the MiddlewareComponent interface.
+// To pipeline.go added the new feature to the function that creates the pipeline and also populates the component struct fields
+// with services when the pipeline is prepared.
 type ServicesMiddlwareComponent interface {
 	Init()
 	ImplementsProcessRequestWithServices()
