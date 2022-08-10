@@ -38,8 +38,6 @@ func (w *LoggingResponseWriter) Write(b []byte) (int, error) {
 
 type LoggingComponent struct{}
 
-// Defining the ImplementsProcessRequestWithServices method implements the interface that the pipeline uses
-// as an indication that there will be a ProcessRequestWithServices method that requires dependency injection.
 func (lc *LoggingComponent) ImplementsProcessRequestWithServices() {}
 
 func (lc *LoggingComponent) Init() {}
