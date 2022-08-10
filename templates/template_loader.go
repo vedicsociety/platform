@@ -3,7 +3,7 @@ package templates
 import (
 	"errors"
 	"html/template"
-	"platform/config"
+	"github.com/tsiparinda/platform/config"
 	"sync"
 )
 
