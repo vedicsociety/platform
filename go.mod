@@ -1,4 +1,4 @@
-module github.com/tsiparinda/platform
+module github.com/tsiparinda/platform/v2
 
 go 1.18
 
