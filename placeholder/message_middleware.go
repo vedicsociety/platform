@@ -18,11 +18,11 @@ package placeholder
 import (
 	//"io"
 	//"errors"
-	"platform/config"
-	"platform/pipeline"
+	"github.com/tsiparinda/platform/config"
+	"github.com/tsiparinda/platform/pipeline"
 
 	//"platform/services"
-	"platform/templates"
+	"github.com/tsiparinda/platform/templates"
 )
 
 type SimpleMessageComponent struct {

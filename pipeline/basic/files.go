@@ -9,8 +9,9 @@ package basic
 
 import (
 	"net/http"
-	"platform/config"
-	"platform/pipeline"
+
+	"github.com/tsiparinda/platform/config"
+	"github.com/tsiparinda/platform/pipeline"
 
 	//"platform/services"
 	"strings"

@@ -1,9 +1,9 @@
 package services
 
 import (
-	"platform/config"
-	"platform/logging"
-	"platform/templates"
+	"github.com/tsiparinda/platform/config"
+	"github.com/tsiparinda/platform/logging"
+	"github.com/tsiparinda/platform/templates"
 )
 
 // The RegisterDefaultServices creates Configuration and Logger services.

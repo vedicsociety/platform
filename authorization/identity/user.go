@@ -1,15 +1,14 @@
-/* 
-The User interface will represent an authenticated user so that requests to restricted resources can be evaluated. 
+/*
+The User interface will represent an authenticated user so that requests to restricted resources can be evaluated.
 */
 package identity
 
 type User interface {
+	GetID() int
 
-    GetID() int 
+	GetDisplayName() string
 
-    GetDisplayName() string
+	InRole(name string) bool
 
-    InRole(name string) bool
-
-    IsAuthenticated() bool
+	IsAuthenticated() bool
 }

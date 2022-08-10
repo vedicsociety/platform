@@ -6,7 +6,7 @@ package logging
 import (
 	"log"
 	"os"
-	"platform/config"
+	"github.com/tsiparinda/platform/config"
 	"strings"
 )
 

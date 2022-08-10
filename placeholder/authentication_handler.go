@@ -8,8 +8,8 @@
 package placeholder
 
 import (
-    "platform/http/actionresults"
-    "platform/authorization/identity"
+    "github.com/tsiparinda/platform/http/actionresults"
+    "github.com/tsiparinda/platform/authorization/identity"
     "fmt"
 )
 

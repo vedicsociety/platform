@@ -2,7 +2,7 @@ package placeholder
 
 import (
     "fmt"
-    "platform/sessions"
+    "github.com/tsiparinda/platform/sessions"
 )
 
 type CounterHandler struct {

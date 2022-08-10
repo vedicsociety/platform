@@ -7,13 +7,13 @@ The Start function calls createPipeline and uses the result to configure and sta
 package placeholder
 
 import (
-	"platform/authorization"
-	"platform/http"
-	"platform/http/handling"
-	"platform/pipeline"
-	"platform/pipeline/basic"
-	"platform/services"
-	"platform/sessions"
+	"github.com/tsiparinda/platform/authorization"
+	"github.com/tsiparinda/platform/http"
+	"github.com/tsiparinda/platform/http/handling"
+	"github.com/tsiparinda/platform/pipeline"
+	"github.com/tsiparinda/platform/pipeline/basic"
+	"github.com/tsiparinda/platform/services"
+	"github.com/tsiparinda/platform/sessions"
 	"sync"
 )
 

@@ -14,7 +14,7 @@ package pipeline
 
 import (
 	"net/http"
-	"platform/services"
+	"github.com/tsiparinda/platform/services"
 	"reflect"
 )
 

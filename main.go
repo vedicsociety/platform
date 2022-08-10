@@ -1,8 +1,8 @@
 package main
 
 import (
-	"platform/placeholder"
-	"platform/services"
+	"github.com/tsiparinda/platform/placeholder"
+	"github.com/tsiparinda/platform/services"
 )
 
 func main() {

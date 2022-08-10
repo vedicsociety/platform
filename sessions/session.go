@@ -2,7 +2,7 @@ package sessions
 
 import (
     "context"
-    "platform/services"
+    "github.com/tsiparinda/platform/services"
     gorilla "github.com/gorilla/sessions"
 )
 

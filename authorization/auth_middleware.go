@@ -3,10 +3,10 @@ package authorization
 
 import (
 	"net/http"
-	"platform/authorization/identity"
-	"platform/config"
-	"platform/http/handling"
-	"platform/pipeline"
+	"github.com/tsiparinda/platform/authorization/identity"
+	"github.com/tsiparinda/platform/config"
+	"github.com/tsiparinda/platform/http/handling"
+	"github.com/tsiparinda/platform/pipeline"
 	"regexp"
 	"strings"
 )

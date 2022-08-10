@@ -1,7 +1,7 @@
 package actionresults
 
 import (
-    "platform/templates"
+    "github.com/tsiparinda/platform/templates"
 )
 
 func NewTemplateAction(name string, data interface{}) ActionResult {

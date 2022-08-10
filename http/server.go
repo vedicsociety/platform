@@ -10,9 +10,9 @@ package http
 import (
 	"fmt"
 	"net/http"
-	"platform/config"
-	"platform/logging"
-	"platform/pipeline"
+	"github.com/tsiparinda/platform/config"
+	"github.com/tsiparinda/platform/logging"
+	"github.com/tsiparinda/platform/pipeline"
 	"sync"
 )
 

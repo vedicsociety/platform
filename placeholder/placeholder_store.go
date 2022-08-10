@@ -3,8 +3,8 @@
 package placeholder
 
 import (
-	"platform/authorization/identity"
-	"platform/services"
+	"github.com/tsiparinda/platform/authorization/identity"
+	"github.com/tsiparinda/platform/services"
 	"strings"
 )
 

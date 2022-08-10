@@ -11,8 +11,9 @@ It also allows components to short-circuit request processing by not invoking th
 package basic
 
 import (
-	"platform/pipeline"
-	"platform/services"
+	"github.com/tsiparinda/platform/services"
+
+	"github.com/tsiparinda/platform/pipeline"
 )
 
 type ServicesComponent struct{}

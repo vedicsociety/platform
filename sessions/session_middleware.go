@@ -3,8 +3,8 @@ package sessions
 import (
 	"context"
     "time"
-	"platform/config"
-	"platform/pipeline"
+	"github.com/tsiparinda/platform/config"
+	"github.com/tsiparinda/platform/pipeline"
 	gorilla "github.com/gorilla/sessions"
 )
 

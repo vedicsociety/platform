@@ -3,9 +3,9 @@
 package authorization
 
 import (
-	"platform/authorization/identity"
-	"platform/services"
-	"platform/sessions"
+	"github.com/tsiparinda/platform/authorization/identity"
+	"github.com/tsiparinda/platform/services"
+	"github.com/tsiparinda/platform/sessions"
 )
 
 // The RegisterDefaultUserService function creates a scoped service for the User interface, 

@@ -3,9 +3,9 @@ package authorization
 
 import (
 	"context"
-	"platform/authorization/identity"
-	"platform/services"
-	"platform/sessions"
+	"github.com/tsiparinda/platform/authorization/identity"
+	"github.com/tsiparinda/platform/services"
+	"github.com/tsiparinda/platform/sessions"
 )
 
 const USER_SESSION_KEY string = "USER"

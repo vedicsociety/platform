@@ -2,10 +2,10 @@ package placeholder
 
 import (
 	"fmt"
-	"platform/http/actionresults"
-	"platform/http/handling"
-	"platform/logging"
-	"platform/validation"
+	"github.com/tsiparinda/platform/http/actionresults"
+	"github.com/tsiparinda/platform/http/handling"
+	"github.com/tsiparinda/platform/logging"
+	"github.com/tsiparinda/platform/validation"
 )
 
 var names = []string{"Alice", "Bob", "Charlie", "Dora"}

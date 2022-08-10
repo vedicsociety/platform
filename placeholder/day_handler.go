@@ -1,7 +1,7 @@
 package placeholder
 
 import (
-    "platform/logging"
+    "github.com/tsiparinda/platform/logging"
     "time"
     "fmt"
 )
