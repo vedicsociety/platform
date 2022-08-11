@@ -4,11 +4,9 @@ import (
 	"github.com/tsiparinda/platform/config"
 	"github.com/tsiparinda/platform/logging"
 	"github.com/tsiparinda/platform/templates"
+	"github.com/tsiparinda/platform/validation"
 )
 
-// The RegisterDefaultServices creates Configuration and Logger services.
-// These services are created using the AddSingleton function, which means that a single instance of the structs that implement each interface
-// will be shared by the entire application.
 func RegisterDefaultServices() {
 
 	err := AddSingleton(func() (c config.Configuration) {
@@ -34,4 +32,13 @@ func RegisterDefaultServices() {
 	if err != nil {
 		panic(err)
 	}
+
+	err = AddSingleton(
+		func() validation.Validator {
+			return validation.NewDefaultValidator(validation.DefaultValidators())
+		})
+	if err != nil {
+		panic(err)
+	}
+
 }
