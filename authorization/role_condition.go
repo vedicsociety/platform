@@ -3,7 +3,7 @@
 package authorization
 
 import (
-	"github.com/tsiparinda/platform/authorization/identity"
+	"github.com/vedicsociety/platform/authorization/identity"
 )
 
 // The NewRoleCondition function accepts a set of roles, which are used to create a condition

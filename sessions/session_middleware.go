@@ -2,10 +2,11 @@ package sessions
 
 import (
 	"context"
-    "time"
-	"github.com/tsiparinda/platform/config"
-	"github.com/tsiparinda/platform/pipeline"
+	"time"
+
 	gorilla "github.com/gorilla/sessions"
+	"github.com/vedicsociety/platform/config"
+	"github.com/vedicsociety/platform/pipeline"
 )
 
 type SessionComponent struct {

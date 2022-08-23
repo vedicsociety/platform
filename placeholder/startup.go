@@ -7,14 +7,15 @@ The Start function calls createPipeline and uses the result to configure and sta
 package placeholder
 
 import (
-	"github.com/tsiparinda/platform/authorization"
-	"github.com/tsiparinda/platform/http"
-	"github.com/tsiparinda/platform/http/handling"
-	"github.com/tsiparinda/platform/pipeline"
-	"github.com/tsiparinda/platform/pipeline/basic"
-	"github.com/tsiparinda/platform/services"
-	"github.com/tsiparinda/platform/sessions"
 	"sync"
+
+	"github.com/vedicsociety/platform/authorization"
+	"github.com/vedicsociety/platform/http"
+	"github.com/vedicsociety/platform/http/handling"
+	"github.com/vedicsociety/platform/pipeline"
+	"github.com/vedicsociety/platform/pipeline/basic"
+	"github.com/vedicsociety/platform/services"
+	"github.com/vedicsociety/platform/sessions"
 )
 
 func createPipeline() pipeline.RequestPipeline {

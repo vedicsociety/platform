@@ -1,15 +1,16 @@
 package placeholder
 
 import (
-    "github.com/tsiparinda/platform/logging"
-    "time"
-    "fmt"
+	"fmt"
+	"time"
+
+	"github.com/vedicsociety/platform/logging"
 )
 
 type DayHandler struct {
-    logging.Logger
+	logging.Logger
 }
 
 func (dh DayHandler) GetDay() string {
-    return  fmt.Sprintf("Day: %v", time.Now().Day())
+	return fmt.Sprintf("Day: %v", time.Now().Day())
 }

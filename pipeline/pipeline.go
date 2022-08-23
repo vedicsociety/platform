@@ -14,8 +14,9 @@ package pipeline
 
 import (
 	"net/http"
-	"github.com/tsiparinda/platform/services"
 	"reflect"
+
+	"github.com/vedicsociety/platform/services"
 )
 
 type RequestPipeline func(*ComponentContext)

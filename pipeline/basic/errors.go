@@ -8,9 +8,10 @@ package basic
 import (
 	"fmt"
 	"net/http"
-	"github.com/tsiparinda/platform/logging"
-	"github.com/tsiparinda/platform/pipeline"
-	"github.com/tsiparinda/platform/services"
+
+	"github.com/vedicsociety/platform/logging"
+	"github.com/vedicsociety/platform/pipeline"
+	"github.com/vedicsociety/platform/services"
 )
 
 type ErrorComponent struct{}

@@ -10,10 +10,11 @@ package http
 import (
 	"fmt"
 	"net/http"
-	"github.com/tsiparinda/platform/config"
-	"github.com/tsiparinda/platform/logging"
-	"github.com/tsiparinda/platform/pipeline"
 	"sync"
+
+	"github.com/vedicsociety/platform/config"
+	"github.com/vedicsociety/platform/logging"
+	"github.com/vedicsociety/platform/pipeline"
 )
 
 type pipelineAdaptor struct {

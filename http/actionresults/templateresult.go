@@ -1,21 +1,21 @@
 package actionresults
 
 import (
-    "github.com/tsiparinda/platform/templates"
+	"github.com/vedicsociety/platform/templates"
 )
 
 func NewTemplateAction(name string, data interface{}) ActionResult {
-    return &TemplateActionResult{ templateName:  name, data: data }
+	return &TemplateActionResult{templateName: name, data: data}
 }
 
 type TemplateActionResult struct {
-    templateName string
-    data interface{}
-    templates.TemplateExecutor
-    templates.InvokeHandlerFunc
+	templateName string
+	data         interface{}
+	templates.TemplateExecutor
+	templates.InvokeHandlerFunc
 }
 
 func (action *TemplateActionResult) Execute(ctx *ActionContext) error {
-    return action.TemplateExecutor.ExecTemplateWithFunc(ctx.ResponseWriter, 
-        action.templateName, action.data, action.InvokeHandlerFunc)
+	return action.TemplateExecutor.ExecTemplateWithFunc(ctx.ResponseWriter,
+		action.templateName, action.data, action.InvokeHandlerFunc)
 }

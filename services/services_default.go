@@ -1,10 +1,10 @@
 package services
 
 import (
-	"github.com/tsiparinda/platform/config"
-	"github.com/tsiparinda/platform/logging"
-	"github.com/tsiparinda/platform/templates"
-	"github.com/tsiparinda/platform/validation"
+	"github.com/vedicsociety/platform/config"
+	"github.com/vedicsociety/platform/logging"
+	"github.com/vedicsociety/platform/templates"
+	"github.com/vedicsociety/platform/validation"
 )
 
 func RegisterDefaultServices() {

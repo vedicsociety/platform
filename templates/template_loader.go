@@ -3,8 +3,9 @@ package templates
 import (
 	"errors"
 	"html/template"
-	"github.com/tsiparinda/platform/config"
 	"sync"
+
+	"github.com/vedicsociety/platform/config"
 )
 
 var once = sync.Once{}

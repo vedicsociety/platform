@@ -7,10 +7,10 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/tsiparinda/platform/http/actionresults"
-	"github.com/tsiparinda/platform/http/handling/params"
-	"github.com/tsiparinda/platform/pipeline"
-	"github.com/tsiparinda/platform/services"
+	"github.com/vedicsociety/platform/http/actionresults"
+	"github.com/vedicsociety/platform/http/handling/params"
+	"github.com/vedicsociety/platform/pipeline"
+	"github.com/vedicsociety/platform/services"
 )
 
 func NewRouter(handlers ...HandlerEntry) *RouterComponent {

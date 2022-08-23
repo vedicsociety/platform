@@ -15,8 +15,8 @@ package basic
 import (
 	"net/http"
 
-	"github.com/tsiparinda/platform/logging"
-	"github.com/tsiparinda/platform/pipeline"
+	"github.com/vedicsociety/platform/logging"
+	"github.com/vedicsociety/platform/pipeline"
 	//"platform/services"
 )
 

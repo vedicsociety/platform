@@ -3,9 +3,10 @@
 package placeholder
 
 import (
-	"github.com/tsiparinda/platform/authorization/identity"
-	"github.com/tsiparinda/platform/services"
 	"strings"
+
+	"github.com/vedicsociety/platform/authorization/identity"
+	"github.com/vedicsociety/platform/services"
 )
 
 func RegisterPlaceholderUserStore() {
@@ -22,7 +23,7 @@ var users = map[int]identity.User{
 	2: identity.NewBasicUser(2, "Bob"),
 }
 
-// The PlaceholderUserStore struct implements the UserStore interface with statically defined data for two users, Alice and Bob, 
+// The PlaceholderUserStore struct implements the UserStore interface with statically defined data for two users, Alice and Bob,
 // and is used by the RegisterPlaceholderUserStore function to create a singleton service.
 type PlaceholderUserStore struct{}
 

@@ -10,8 +10,8 @@ package basic
 import (
 	"net/http"
 
-	"github.com/tsiparinda/platform/config"
-	"github.com/tsiparinda/platform/pipeline"
+	"github.com/vedicsociety/platform/config"
+	"github.com/vedicsociety/platform/pipeline"
 
 	//"platform/services"
 	"strings"

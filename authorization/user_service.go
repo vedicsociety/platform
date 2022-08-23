@@ -3,12 +3,12 @@
 package authorization
 
 import (
-	"github.com/tsiparinda/platform/authorization/identity"
-	"github.com/tsiparinda/platform/services"
-	"github.com/tsiparinda/platform/sessions"
+	"github.com/vedicsociety/platform/authorization/identity"
+	"github.com/vedicsociety/platform/services"
+	"github.com/vedicsociety/platform/sessions"
 )
 
-// The RegisterDefaultUserService function creates a scoped service for the User interface, 
+// The RegisterDefaultUserService function creates a scoped service for the User interface,
 // which reads the value stored in the current session and uses it to query the UserStore service.
 func RegisterDefaultUserService() {
 	err := services.AddScoped(func(session sessions.Session,

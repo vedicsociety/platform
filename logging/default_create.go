@@ -6,8 +6,9 @@ package logging
 import (
 	"log"
 	"os"
-	"github.com/tsiparinda/platform/config"
 	"strings"
+
+	"github.com/vedicsociety/platform/config"
 )
 
 func NewDefaultLogger(cfg config.Configuration) Logger {

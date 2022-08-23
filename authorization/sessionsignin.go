@@ -3,9 +3,10 @@ package authorization
 
 import (
 	"context"
-	"github.com/tsiparinda/platform/authorization/identity"
-	"github.com/tsiparinda/platform/services"
-	"github.com/tsiparinda/platform/sessions"
+
+	"github.com/vedicsociety/platform/authorization/identity"
+	"github.com/vedicsociety/platform/services"
+	"github.com/vedicsociety/platform/sessions"
 )
 
 const USER_SESSION_KEY string = "USER"

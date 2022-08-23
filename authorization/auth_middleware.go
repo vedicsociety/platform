@@ -3,12 +3,13 @@ package authorization
 
 import (
 	"net/http"
-	"github.com/tsiparinda/platform/authorization/identity"
-	"github.com/tsiparinda/platform/config"
-	"github.com/tsiparinda/platform/http/handling"
-	"github.com/tsiparinda/platform/pipeline"
 	"regexp"
 	"strings"
+
+	"github.com/vedicsociety/platform/authorization/identity"
+	"github.com/vedicsociety/platform/config"
+	"github.com/vedicsociety/platform/http/handling"
+	"github.com/vedicsociety/platform/pipeline"
 )
 
 func NewAuthComponent(prefix string, condition identity.AuthorizationCondition,

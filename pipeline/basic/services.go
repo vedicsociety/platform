@@ -11,9 +11,9 @@ It also allows components to short-circuit request processing by not invoking th
 package basic
 
 import (
-	"github.com/tsiparinda/platform/services"
+	"github.com/vedicsociety/platform/services"
 
-	"github.com/tsiparinda/platform/pipeline"
+	"github.com/vedicsociety/platform/pipeline"
 )
 
 type ServicesComponent struct{}

@@ -8,9 +8,9 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/tsiparinda/platform/http/actionresults"
-	"github.com/tsiparinda/platform/services"
-	"github.com/tsiparinda/platform/templates"
+	"github.com/vedicsociety/platform/http/actionresults"
+	"github.com/vedicsociety/platform/services"
+	"github.com/vedicsociety/platform/templates"
 )
 
 func createInvokehandlerFunc(ctx context.Context,

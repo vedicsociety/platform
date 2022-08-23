@@ -1,9 +1,10 @@
 package sessions
 
 import (
-    "context"
-    "github.com/tsiparinda/platform/services"
-    gorilla "github.com/gorilla/sessions"
+	"context"
+
+	gorilla "github.com/gorilla/sessions"
+	"github.com/vedicsociety/platform/services"
 )
 
 const SESSION__CONTEXT_KEY string = "pro_go_session"
