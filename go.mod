@@ -1,4 +1,4 @@
-module github.com/tsiparinda/platform
+module github.com/vedicsociety/platform
 
 go 1.18
 
