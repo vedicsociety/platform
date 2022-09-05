@@ -13,19 +13,24 @@ import (
 
 func getFileFromMultipartForm(funcType reflect.Type, form *http.Request) (params []reflect.Value, err error) {
 	err = form.ParseMultipartForm(20 << 20)
+	if err != nil {
+		err = errors.New("getFileFromMultipartForm: error ParseMultipartForm")
+		return
+	}
 	file, handler, err := form.FormFile("file")
 	if err != nil {
-		err = errors.New("file_not_found")
+		err = errors.New("getFileFromMultipartForm: file_not_found")
 		return
 	} else if filepath.Ext(handler.Filename) != ".cex" {
-		err = errors.New("bad_file_ext")
+		err = errors.New("getFileFromMultipartForm: bad_file_extention")
 		return
 	}
 	defer file.Close()
 
 	data, err := ioutil.ReadAll(file)
 	datafile := []string{string(data)}
-
+	// fmt.Errorf("dffd", len(datafile), funcType.NumIn())
+	// return
 	if len(datafile) == funcType.NumIn()-1 {
 		params = make([]reflect.Value, funcType.NumIn()-1)
 		for i := 0; i < len(datafile); i++ {
@@ -35,7 +40,7 @@ func getFileFromMultipartForm(funcType reflect.Type, form *http.Request) (params
 			}
 		}
 	} else {
-		err = errors.New("Parameter number mismatch")
+		err = errors.New("getFileFromMultipartForm: Parameter number mismatch")
 	}
 
 	return

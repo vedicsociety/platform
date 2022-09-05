@@ -8,22 +8,22 @@ import (
 
 func GetParametersFromRequest(request *http.Request, handlerMethod reflect.Method,
 	urlVals []string) (params []reflect.Value, err error) {
-	//fmt.Printf("GetParametersFromRequest input:", handlerMethod, urlVals)
+
 	handlerMethodType := handlerMethod.Type
+
+	//for first render multipast form's data
+	if strings.Contains(getContentType(request), "multipart/form-data") {
+		err = request.ParseMultipartForm(20 << 20)
+		if err == nil {
+			return getFileFromMultipartForm(handlerMethodType, request)
+		}
+	}
+
 	params = make([]reflect.Value, handlerMethodType.NumIn()-1)
 	if handlerMethodType.NumIn() == 1 {
 		return []reflect.Value{}, nil
 	} else if handlerMethodType.NumIn() == 2 && handlerMethodType.In(1).Kind() == reflect.Struct {
 		structVal := reflect.New(handlerMethodType.In(1))
-
-		//for render multipast form's data
-		//fmt.Printf("GetParametersFromRequest input:", handlerMethod, urlVals)
-		if strings.Contains(getContentType(request), "multipart/form-data") {
-			err = request.ParseMultipartForm(20 << 20)
-			if err == nil {
-				return getFileFromMultipartForm(handlerMethodType, request)
-			}
-		}
 
 		err = request.ParseForm()
 		if err == nil && getContentType(request) == "application/json" {
