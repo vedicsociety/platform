@@ -10,6 +10,8 @@ package http
 import (
 	"fmt"
 	"net/http"
+	"os"
+	"strconv"
 	"sync"
 
 	"github.com/vedicsociety/platform/config"
@@ -34,6 +36,11 @@ func Serve(pl pipeline.RequestPipeline, cfg config.Configuration, logger logging
 	enableHttp := cfg.GetBoolDefault("http:enableHttp", true)
 	if enableHttp {
 		httpPort := cfg.GetIntDefault("http:port", 5000)
+		// for compatability with heroku
+		osport := os.Getenv("PORT")
+		if osport != "" {
+			httpPort, _ = strconv.Atoi(osport)
+		}
 		logger.Debugf("Starting HTTP server on port %v", httpPort)
 		wg.Add(1)
 		go func() {
