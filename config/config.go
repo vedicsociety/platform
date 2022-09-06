@@ -16,4 +16,6 @@ type Configuration interface {
 	GetFloatDefault(name string, defVal float64) (configValue float64)
 
 	GetSection(sectionName string) (section Configuration, found bool)
+
+	SetString(name string, value string)
 }

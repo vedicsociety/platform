@@ -23,6 +23,28 @@ func Load(fileName string) (config Configuration, err error) {
 		if err == nil {
 			config = &DefaultConfig{configData: m}
 		}
+		loadEnv(config)
 	}
 	return
+}
+
+func loadEnv(c Configuration) {
+	// get prefix
+	pref, f := c.GetString("system:prefix")
+	if f {
+		// retrive all of environ vars as slice [](name=value)
+		for _, env := range os.Environ() {
+			// retrive names only
+			pair := strings.SplitN(env, "=", 2)
+			// filter with prefix only
+			if strings.HasPrefix(pair[0], pref) {
+				// trim prefix
+				oskey := strings.TrimPrefix(pair[0], pref)
+				// replace _ to : (by agreement)
+				oskey = strings.ReplaceAll(oskey, "_", ":")
+				// set value to config
+				c.SetString(oskey, pair[1])
+			}
+		}
+	}
 }

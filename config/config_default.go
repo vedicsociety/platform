@@ -25,6 +25,36 @@ func (c *DefaultConfig) get(name string) (result interface{}, found bool) {
     return
 }
 
+func (c *DefaultConfig) SetString(name string, value string) {
+	data := c.configData
+	var (
+		result interface{}
+		found  bool
+	)
+	keys := strings.Split(name, ":")
+	for i, key := range keys {
+		result, found = data[key]
+		if i == len(keys)-1 {
+			if found {
+				// update
+				data[key] = value
+				return
+			} else {
+				// add new
+				data[key] = value
+				return
+			}
+		} 
+			if newSection, ok := result.(map[string]interface{}); ok && found {
+				data = newSection
+			} else {
+				return
+			}
+		
+	}
+	return
+}
+
 func (c *DefaultConfig) GetSection(name string) (section Configuration, found bool) {
     value, found := c.get(name)
     if (found) {
