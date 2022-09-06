@@ -4,7 +4,7 @@ This platform is a copy of Adam's Freeman project, described in book "Pro Go The
 
 ## Config
 
-* changed logic config loading: all parameters load from config.json, but platform check existing variables in os.env with prefix defined in json and redefine config values to os,env values in the presence of
+* changed logic config loading: all parameters load from config.json, but platform check existing variables in os.env with prefix defined in json and redefine config values to os.env values in the presence of; new env can be added to leaf level only (without "_" symbol)
 
 ## Handling
 
