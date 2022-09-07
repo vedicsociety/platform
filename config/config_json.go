@@ -43,7 +43,7 @@ func loadEnv(c Configuration) {
 				// replace _ to : (by agreement)
 				oskey = strings.ReplaceAll(oskey, "_", ":")
 				// set value to config
-				c.SetString(oskey, pair[1])
+				c.SetValue(oskey, pair[1])
 			}
 		}
 	}

@@ -17,5 +17,5 @@ type Configuration interface {
 
 	GetSection(sectionName string) (section Configuration, found bool)
 
-	SetString(name string, value string)
+	SetValue(name string, value string)
 }

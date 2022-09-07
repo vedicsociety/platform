@@ -6,26 +6,30 @@
 // To define the methods that accept a default value, see a file named config_default_fallback.go to the config folder
 package config
 
-import "strings"
+import (
+	"reflect"
+	"strconv"
+	"strings"
+)
 
 type DefaultConfig struct {
-    configData map[string]interface{}
+	configData map[string]interface{}
 }
 
 func (c *DefaultConfig) get(name string) (result interface{}, found bool) {
-    data := c.configData
-    for _, key := range strings.Split(name, ":") {
-        result, found = data[key]
-        if newSection, ok := result.(map[string]interface{}); ok && found {
-            data = newSection
-        } else {
-            return 
-        }
-    }
-    return
+	data := c.configData
+	for _, key := range strings.Split(name, ":") {
+		result, found = data[key]
+		if newSection, ok := result.(map[string]interface{}); ok && found {
+			data = newSection
+		} else {
+			return
+		}
+	}
+	return
 }
 
-func (c *DefaultConfig) SetString(name string, value string) {
+func (c *DefaultConfig) SetValue(name string, value string) {
 	data := c.configData
 	var (
 		result interface{}
@@ -35,56 +39,69 @@ func (c *DefaultConfig) SetString(name string, value string) {
 	for i, key := range keys {
 		result, found = data[key]
 		if i == len(keys)-1 {
-			if found {
-				// update
+			elem := data[key]
+			elemValue := reflect.ValueOf(elem)
+			switch elemValue.Kind() {
+			case reflect.Bool:
+				data[key], _ = strconv.ParseBool(value)
+			case reflect.Int:
+				data[key], _ = strconv.Atoi(value)
+			case reflect.Float32, reflect.Float64:
+				data[key], _ = strconv.ParseFloat(value, 64)
+			case reflect.String:
 				data[key] = value
-				return
-			} else {
-				// add new
+			default:
 				data[key] = value
-				return
 			}
-		} 
-			if newSection, ok := result.(map[string]interface{}); ok && found {
-				data = newSection
-			} else {
-				return
-			}
-		
+		}
+		if newSection, ok := result.(map[string]interface{}); ok && found {
+			data = newSection
+		} else {
+			return
+		}
+
 	}
 	return
 }
 
 func (c *DefaultConfig) GetSection(name string) (section Configuration, found bool) {
-    value, found := c.get(name)
-    if (found) {
-        if sectionData, ok := value.(map[string]interface{}) ; ok {
-            section = &DefaultConfig { configData: sectionData }
-        }
-    }
-    return
+	value, found := c.get(name)
+	if found {
+		if sectionData, ok := value.(map[string]interface{}); ok {
+			section = &DefaultConfig{configData: sectionData}
+		}
+	}
+	return
 }
 
 func (c *DefaultConfig) GetString(name string) (result string, found bool) {
-    value, found := c.get(name)
-    if (found) { result = value.(string) }
-    return
+	value, found := c.get(name)
+	if found {
+		result = value.(string)
+	}
+	return
 }
 
 func (c *DefaultConfig) GetInt(name string) (result int, found bool) {
-    value, found := c.get(name)
-    if (found) { result =  int(value.(float64)) }
-    return
+	value, found := c.get(name)
+	if found {
+		result = int(value.(float64))
+	}
+	return
 }
 
 func (c *DefaultConfig) GetBool(name string) (result bool, found bool) {
-    value, found := c.get(name)
-    if (found) { result = value.(bool) }
-    return
+	value, found := c.get(name)
+	if found {
+		result = value.(bool)
+	}
+	return
 }
 
 func (c *DefaultConfig) GetFloat(name string) (result float64, found bool) {
-    value, found := c.get(name)
-    if (found) { result = value.(float64) }
-    return
+	value, found := c.get(name)
+	if found {
+		result = value.(float64)
+	}
+	return
 }
