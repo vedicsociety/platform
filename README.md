@@ -8,8 +8,11 @@ This platform is a copy of Adam's Freeman project, described in book "Pro Go The
 * environment variables take precedence over config.json.
 * for redefine a variable, you must specify all path. 
 for example:
+
 config.json variable sql:driverName = postgres
+
 os.env should be: [prefix]_sql_driverName = postgres
+
 where prefix is the config.json parameter system:prefix
 
 ## Handling
