@@ -5,7 +5,7 @@ package identity
 
 import "strings"
 
-//  UnauthenticatedUser variable will be used to represent a user who has not signed into the application.
+// UnauthenticatedUser variable will be used to represent a user who has not signed into the application.
 var UnauthenticatedUser User = &basicUser{}
 
 // The NewBasicUser function creates a simple implementation of the User interface
@@ -44,4 +44,8 @@ func (user *basicUser) InRole(role string) bool {
 
 func (user *basicUser) IsAuthenticated() bool {
 	return user.Authenticated
+}
+
+func (user *basicUser) IsPasswordTrue(pass string) bool {
+	return true
 }
