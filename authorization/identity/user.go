@@ -11,4 +11,6 @@ type User interface {
 	InRole(name string) bool
 
 	IsAuthenticated() bool
+
+	IsPasswordTrue(pass string) bool
 }
