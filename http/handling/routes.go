@@ -90,7 +90,7 @@ func generateRegularExpression(prefix string, route *Route) {
 			if route.handlerMethod.Type.In(i).Kind() == reflect.Int {
 				pattern += "/([0-9]*)"
 			} else {
-				pattern += "/([A-z0-9:.?=]*)"
+				pattern += "/([A-z0-9:.]*)"
 			}
 		}
 	}
