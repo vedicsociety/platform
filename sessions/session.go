@@ -27,6 +27,7 @@ type Session interface {
 	GetValue(key string) interface{}
 	GetValueDefault(key string, defVal interface{}) interface{}
 	SetValue(key string, val interface{})
+	Logout()
 }
 
 type SessionAdaptor struct {
