@@ -78,9 +78,9 @@ func generateUrl(route Route, data ...interface{}) (url string, err error) {
 	return
 }
 
-func (gen *routeUrlGenerator) RoutesPrint() routeUrlGenerator {
-	var statRoutes routeUrlGenerator
-	statRoutes.routes = gen.routes
+func (gen *routeUrlGenerator) RoutesPrint() (statRoutes []Route) {
+	for _, route := range gen.routes {
+		statRoutes = append(statRoutes, route)
+	}
 	return statRoutes
-
 }
