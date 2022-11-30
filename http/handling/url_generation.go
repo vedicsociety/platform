@@ -15,6 +15,8 @@ type URLGenerator interface {
 		data ...interface{}) (string, error)
 
 	AddRoutes(routes []Route)
+
+	RoutesPrint() routeUrlGenerator
 }
 
 type routeUrlGenerator struct {
