@@ -42,7 +42,7 @@ func generateRoutes(entries ...HandlerEntry) []Route {
 						httpMethod:    httpMethod,
 						prefix:        entry.Prefix,
 						handlerName:   strings.Split(handlerType.Name(), "Handler")[0],
-						actionName:    strings.Split(methodName, httpMethod)[1],
+						actionName:    strings.TrimLeft(methodName, httpMethod),
 						handlerMethod: method,
 					}
 					generateRegularExpression(entry.Prefix, &route)
