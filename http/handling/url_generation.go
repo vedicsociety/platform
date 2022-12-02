@@ -45,6 +45,14 @@ func (gen *routeUrlGenerator) GenerateUrl(method interface{},
 	return "", errors.New("No matching route")
 }
 
+// you can use RoutesPrint method for showing the route
+// example true using this function:
+//
+//			{Handler: "Tools", Action: "GETSECTION", Section: "PassageOverview", Name: "Passage overview"},
+//			{Handler: "Tools", Action: "GETSECTION", Section: "IngestCEX", Name: "Ingest CEX"},
+//			{Handler: "Tools", Action: "GETSECTION", Section: "PassageOverview", Name: "Your profile"},
+//			{Handler: "Authentication", Action: "GETSIGNOUT", Section: "", Name: "Sign out"},
+//	},
 func (gen *routeUrlGenerator) GenerateURLByName(handlerName, methodName string,
 	data ...interface{}) (string, error) {
 	for _, route := range gen.routes {
