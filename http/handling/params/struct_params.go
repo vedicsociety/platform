@@ -42,7 +42,6 @@ func getFileFromMultipartForm(funcType reflect.Type, form *http.Request) (params
 	} else {
 		err = errors.New("getFileFromMultipartForm: Parameter number mismatch")
 	}
-
 	return
 }
 

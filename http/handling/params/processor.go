@@ -11,12 +11,12 @@ func GetParametersFromRequest(request *http.Request, handlerMethod reflect.Metho
 
 	handlerMethodType := handlerMethod.Type
 
-	//for first render multipast form's data
+	//for first render multipart form's data
 	if strings.Contains(getContentType(request), "multipart/form-data") {
-		err = request.ParseMultipartForm(20 << 20)
-		if err == nil {
-			return getFileFromMultipartForm(handlerMethodType, request)
-		}
+		//	err = request.ParseMultipartForm(20 << 20)
+		//	if err == nil {
+		return getFileFromMultipartForm(handlerMethodType, request)
+		//	}
 	}
 
 	params = make([]reflect.Value, handlerMethodType.NumIn()-1)
