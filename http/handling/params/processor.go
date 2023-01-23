@@ -3,6 +3,7 @@ package params
 import (
 	"net/http"
 	"reflect"
+	"strings"
 )
 
 func GetParametersFromRequest(request *http.Request, handlerMethod reflect.Method,
@@ -11,12 +12,12 @@ func GetParametersFromRequest(request *http.Request, handlerMethod reflect.Metho
 	handlerMethodType := handlerMethod.Type
 
 	//for first render multipart form's data
-	// if strings.Contains(getContentType(request), "multipart/form-data") {
-	// 	//	err = request.ParseMultipartForm(20 << 20)
-	// 	//	if err == nil {
-	// 	return getStructFromMultipartForm(handlerMethodType, request)
-	// 	//	}
-	// }
+	if strings.Contains(getContentType(request), "multipart/form-data") {
+		//	err = request.ParseMultipartForm(20 << 20)
+		//	if err == nil {
+		return getStructFromMultipartForm(handlerMethodType, request)
+		//	}
+	}
 
 	params = make([]reflect.Value, handlerMethodType.NumIn()-1)
 	if handlerMethodType.NumIn() == 1 {
