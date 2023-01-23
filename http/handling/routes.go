@@ -39,10 +39,11 @@ func generateRoutes(entries ...HandlerEntry) []Route {
 						continue
 					}
 					route := Route{
-						httpMethod:    httpMethod,
-						prefix:        entry.Prefix,
-						handlerName:   strings.Split(handlerType.Name(), "Handler")[0],
-						actionName:    strings.TrimLeft(methodName, httpMethod),
+						httpMethod:  httpMethod,
+						prefix:      entry.Prefix,
+						handlerName: strings.Split(handlerType.Name(), "Handler")[0],
+						//actionName:    strings.TrimLeft(methodName, httpMethod),
+						actionName:    strings.Split(methodName, httpMethod)[1],
 						handlerMethod: method,
 					}
 					generateRegularExpression(entry.Prefix, &route)
