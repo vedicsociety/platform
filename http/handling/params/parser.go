@@ -32,8 +32,8 @@ func parseValueToType(target reflect.Type, val string) (result reflect.Value,
 		} else {
 			return reflect.Value{}, convErr
 		}
-	case reflect.Struct:
-		result = reflect.ValueOf(val)
+	// case reflect.Struct:
+	// 	result = reflect.ValueOf(val)
 	default:
 		err = fmt.Errorf("Cannot use type %v as handler method parameter",
 			target.Name())
