@@ -15,7 +15,7 @@ func GetParametersFromRequest(request *http.Request, handlerMethod reflect.Metho
 	if strings.Contains(getContentType(request), "multipart/form-data") {
 		//	err = request.ParseMultipartForm(20 << 20)
 		//	if err == nil {
-		return getFileFromMultipartForm(handlerMethodType, request)
+		return getStructFromMultipartForm(handlerMethodType, request)
 		//	}
 	}
 
