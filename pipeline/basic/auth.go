@@ -14,26 +14,36 @@ This component performs actions before and after the next function is invoked, l
 package basic
 
 import (
-	"fmt"
 	"net/http"
 
+	"github.com/vedicsociety/platform/config"
 	"github.com/vedicsociety/platform/pipeline"
 )
 
-type AuthComponent struct{}
+type AuthComponent struct {
+	Config config.Configuration
+}
 
 func (lc *AuthComponent) Init() {}
 
 func (c *AuthComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 	next func(*pipeline.ComponentContext)) {
+	//
+	isenabled := c.Config.GetBoolDefault("auth:isenabled", false)
+	if isenabled {
+		user, pass, ok := ctx.Request.BasicAuth()
+		if ok {
+			osuser, _ := c.Config.GetString("auth:user")
+			ospassw, _ := c.Config.GetString("auth:password")
+			if osuser == user && ospassw == pass {
+				next(ctx)
+				return
+			}
+		}
 
-	user, pass, ok := ctx.Request.BasicAuth()
-	if ok {
-		fmt.Printf("sdjf", user, pass)
-		next(ctx)
-		return
+		ctx.ResponseWriter.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
+		http.Error(ctx.ResponseWriter, "Unauthorized", 401)
 	}
-	ctx.ResponseWriter.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
-	http.Error(ctx.ResponseWriter, "Unauthorized", 401)
-
+	next(ctx)
+	return
 }
