@@ -25,6 +25,7 @@ type pipelineAdaptor struct {
 
 func (p pipelineAdaptor) ServeHTTP(writer http.ResponseWriter,
 	request *http.Request) {
+		
 	p.ProcessRequest(request, writer)
 }
 
@@ -32,7 +33,6 @@ func Serve(pl pipeline.RequestPipeline, cfg config.Configuration, logger logging
 	wg := sync.WaitGroup{}
 
 	adaptor := pipelineAdaptor{RequestPipeline: pl}
-
 	enableHttp := cfg.GetBoolDefault("http:enableHttp", true)
 	if enableHttp {
 		httpPort := cfg.GetIntDefault("http:port", 5000)
