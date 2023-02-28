@@ -9,6 +9,7 @@ package basic
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/vedicsociety/platform/config"
 	"github.com/vedicsociety/platform/pipeline"
@@ -27,8 +28,7 @@ func (sfc *StaticFileComponent) Init() {
 	sfc.urlPrefix = sfc.Config.GetStringDefault("files:urlprefix", "/files/")
 	path, ok := sfc.Config.GetString("files:path")
 	if ok {
-		sfc.stdLibHandler = http.StripPrefix(sfc.urlPrefix,
-			http.FileServer(http.Dir(path)))
+		sfc.stdLibHandler = http.StripPrefix(sfc.urlPrefix, http.FileServer(http.Dir(path)))
 	} else {
 		panic("Cannot load file configuration settings")
 	}
@@ -36,11 +36,24 @@ func (sfc *StaticFileComponent) Init() {
 
 func (sfc *StaticFileComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 	next func(*pipeline.ComponentContext)) {
-	next(ctx)
-	// if !strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix) &&
-	// 	strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix) {
-	// 	sfc.stdLibHandler.ServeHTTP(ctx.ResponseWriter, ctx.Request)
-	// } else {
-	// 	next(ctx)
-	// }
+
+	isenabled := sfc.Config.GetBoolDefault("auth:isenabled", false)
+	if isenabled {
+		user, pass, ok := ctx.Request.BasicAuth()
+		if ok {
+			osuser, _ := sfc.Config.GetString("auth:user")
+			ospassw, _ := sfc.Config.GetString("auth:password")
+			if osuser == user && ospassw == pass {
+				if !strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix) &&
+					strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix) {
+					sfc.stdLibHandler.ServeHTTP(ctx.ResponseWriter, ctx.Request)
+				} else {
+					next(ctx)
+				}
+			}
+		}
+		ctx.ResponseWriter.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
+		http.Error(ctx.ResponseWriter, "Unauthorized", 401)
+	}
+
 }
