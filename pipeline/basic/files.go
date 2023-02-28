@@ -12,9 +12,7 @@ import (
 
 	"github.com/vedicsociety/platform/config"
 	"github.com/vedicsociety/platform/pipeline"
-
 	//"platform/services"
-	"strings"
 )
 
 type StaticFileComponent struct {
@@ -38,11 +36,11 @@ func (sfc *StaticFileComponent) Init() {
 
 func (sfc *StaticFileComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 	next func(*pipeline.ComponentContext)) {
-
-	if !strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix) &&
-		strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix) {
-		sfc.stdLibHandler.ServeHTTP(ctx.ResponseWriter, ctx.Request)
-	} else {
-		next(ctx)
-	}
+	next(ctx)
+	// if !strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix) &&
+	// 	strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix) {
+	// 	sfc.stdLibHandler.ServeHTTP(ctx.ResponseWriter, ctx.Request)
+	// } else {
+	// 	next(ctx)
+	// }
 }
