@@ -8,6 +8,7 @@ and the directory from which to serve files and uses the handlers provided by th
 package basic
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -29,6 +30,7 @@ func (sfc *StaticFileComponent) Init() {
 	path, ok := sfc.Config.GetString("files:path")
 	if ok {
 		sfc.stdLibHandler = http.StripPrefix(sfc.urlPrefix, http.FileServer(http.Dir(path)))
+		fmt.Printf("Init :", sfc.stdLibHandler)
 	} else {
 		panic("Cannot load file configuration settings")
 	}
@@ -36,24 +38,12 @@ func (sfc *StaticFileComponent) Init() {
 
 func (sfc *StaticFileComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 	next func(*pipeline.ComponentContext)) {
-
-	isenabled := sfc.Config.GetBoolDefault("auth:isenabled", false)
-	if isenabled {
-		user, pass, ok := ctx.Request.BasicAuth()
-		if ok {
-			osuser, _ := sfc.Config.GetString("auth:user")
-			ospassw, _ := sfc.Config.GetString("auth:password")
-			if osuser == user && ospassw == pass {
-				if !strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix) &&
-					strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix) {
-					sfc.stdLibHandler.ServeHTTP(ctx.ResponseWriter, ctx.Request)
-				} else {
-					next(ctx)
-				}
-			}
-		}
-		ctx.ResponseWriter.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
-		http.Error(ctx.ResponseWriter, "Unauthorized", 401)
+	fmt.Printf("StaticFileComponent ", ctx.Request.URL.Path, sfc.urlPrefix, strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix), strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix))
+	
+	if !strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix) &&
+		strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix) {
+		sfc.stdLibHandler.ServeHTTP(ctx.ResponseWriter, ctx.Request)
+	} else {
+		next(ctx)
 	}
-
 }
