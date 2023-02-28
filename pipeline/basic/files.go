@@ -39,10 +39,11 @@ func (sfc *StaticFileComponent) Init() {
 func (sfc *StaticFileComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 	next func(*pipeline.ComponentContext)) {
 	fmt.Printf("StaticFileComponent ", ctx.Request.URL.Path, sfc.urlPrefix, strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix), strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix))
-	
+
 	if !strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix) &&
 		strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix) {
 		sfc.stdLibHandler.ServeHTTP(ctx.ResponseWriter, ctx.Request)
+		return
 	} else {
 		next(ctx)
 	}

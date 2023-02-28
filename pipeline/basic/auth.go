@@ -37,6 +37,7 @@ func (c *AuthComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 			ospassw, _ := c.Config.GetString("auth:password")
 			if osuser == user && ospassw == pass {
 				next(ctx)
+				return
 			}
 		}
 
