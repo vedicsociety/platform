@@ -18,28 +18,36 @@ import (
 
 	"github.com/vedicsociety/platform/config"
 	"github.com/vedicsociety/platform/pipeline"
+	"github.com/vedicsociety/platform/sessions"
 )
 
 type AuthComponent struct {
-	Config config.Configuration
+	Config  config.Configuration
+	Session sessions.Session
 }
 
-func (lc *AuthComponent) Init() {}
+func (c *AuthComponent) Init() {}
+
 
 func (c *AuthComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 	next func(*pipeline.ComponentContext)) {
-	//
 	isenabled := c.Config.GetBoolDefault("auth:isenabled", false)
 	if isenabled {
-		user, pass, ok := ctx.Request.BasicAuth()
-		if ok {
-			osuser, _ := c.Config.GetString("auth:user")
-			ospassw, _ := c.Config.GetString("auth:password")
-			if osuser == user && ospassw == pass {
-				next(ctx)
+		if c.Session.GetValueDefault("Is_BasicAutenticated", false).(bool) {
+			next(ctx)
+		} else {
+			user, pass, ok := ctx.Request.BasicAuth()
+			if ok {
+				osuser, _ := c.Config.GetString("auth:user")
+				ospassw, _ := c.Config.GetString("auth:password")
+				if osuser == user && ospassw == pass {
+					c.Session.SetValue("Is_BAsicAutenticated", true)
+					next(ctx)
+				}
 			}
 		}
 		ctx.ResponseWriter.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
 		http.Error(ctx.ResponseWriter, "Unauthorized", 401)
 	}
+	next(ctx)
 }
