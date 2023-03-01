@@ -2,6 +2,11 @@
     "logging" : {
         "level": "debug"
     },
+    "auth" : {
+        "isenabled": true,
+        "user": "bruch",
+        "password": "eion"
+    },
     "main" : {
         "message" : "Hello from the config file"
     },

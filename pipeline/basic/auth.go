@@ -17,37 +17,49 @@ import (
 	"net/http"
 
 	"github.com/vedicsociety/platform/config"
+	"github.com/vedicsociety/platform/logging"
 	"github.com/vedicsociety/platform/pipeline"
-	"github.com/vedicsociety/platform/sessions"
 )
 
 type AuthComponent struct {
-	Config  config.Configuration
-	Session sessions.Session
+	Config              config.Configuration
+	Logger              logging.Logger
+	Is_BasicAuthEnabled bool
 }
 
-func (c *AuthComponent) Init() {}
+func (c *AuthComponent) Init() {
+	c.Is_BasicAuthEnabled = c.Config.GetBoolDefault("auth:isenabled", false)
 
+}
 
 func (c *AuthComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 	next func(*pipeline.ComponentContext)) {
-	isenabled := c.Config.GetBoolDefault("auth:isenabled", false)
-	if isenabled {
-		if c.Session.GetValueDefault("Is_BasicAutenticated", false).(bool) {
-			next(ctx)
-		} else {
+
+	c.Logger.Debugf("AuthComponent.Is_BasicAutenticated :", ctx.Is_BasicAutenticated, c.Is_BasicAuthEnabled)
+
+	if c.Is_BasicAuthEnabled {
+		if !ctx.Is_BasicAutenticated {
+
+			ctx.ResponseWriter.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
+			ctx.ResponseWriter.WriteHeader(http.StatusUnauthorized)
+
 			user, pass, ok := ctx.Request.BasicAuth()
+			c.Logger.Debugf("AuthComponent after", ok)
+
 			if ok {
 				osuser, _ := c.Config.GetString("auth:user")
 				ospassw, _ := c.Config.GetString("auth:password")
 				if osuser == user && ospassw == pass {
-					c.Session.SetValue("Is_BAsicAutenticated", true)
+					c.Logger.Debugf("AuthComponent :", user, pass, ok)
+					ctx.Is_BasicAutenticated = true
+					ctx.ResponseWriter.WriteHeader(0)
 					next(ctx)
 				}
 			}
 		}
-		ctx.ResponseWriter.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
-		http.Error(ctx.ResponseWriter, "Unauthorized", 401)
+
+	} else {
+		next(ctx)
 	}
-	next(ctx)
+
 }

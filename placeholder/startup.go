@@ -23,8 +23,10 @@ func createPipeline() pipeline.RequestPipeline {
 		&basic.ServicesComponent{},
 		&basic.LoggingComponent{},
 		&basic.ErrorComponent{},
+		&basic.AuthComponent{},
 		&basic.StaticFileComponent{},
 		&sessions.SessionComponent{},
+
 		//&SimpleMessageComponent{},
 
 		// The changes create a branch of the pipeline that has the /protected prefix,

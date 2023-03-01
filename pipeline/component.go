@@ -17,6 +17,7 @@ type ComponentContext struct {
 	*http.Request
 	http.ResponseWriter
 	error
+	Is_BasicAutenticated bool
 }
 
 func (mwc *ComponentContext) Error(err error) {
