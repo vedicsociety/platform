@@ -8,7 +8,6 @@ and the directory from which to serve files and uses the handlers provided by th
 package basic
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -30,7 +29,6 @@ func (sfc *StaticFileComponent) Init() {
 	path, ok := sfc.Config.GetString("files:path")
 	if ok {
 		sfc.stdLibHandler = http.StripPrefix(sfc.urlPrefix, http.FileServer(http.Dir(path)))
-		fmt.Printf("Init :", sfc.stdLibHandler)
 	} else {
 		panic("Cannot load file configuration settings")
 	}
@@ -38,7 +36,6 @@ func (sfc *StaticFileComponent) Init() {
 
 func (sfc *StaticFileComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 	next func(*pipeline.ComponentContext)) {
-	fmt.Printf("StaticFileComponent ", ctx.Request.URL.Path, sfc.urlPrefix, strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix), strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix))
 
 	if !strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix) &&
 		strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix) {

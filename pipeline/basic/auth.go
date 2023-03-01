@@ -38,6 +38,7 @@ func (c *AuthComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 	c.Logger.Debugf("AuthComponent.Is_BasicAutenticated :", ctx.Is_BasicAutenticated, c.Is_BasicAuthEnabled)
 
 	if c.Is_BasicAuthEnabled {
+		
 		if !ctx.Is_BasicAutenticated {
 
 			ctx.ResponseWriter.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
