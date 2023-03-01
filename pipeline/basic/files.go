@@ -43,7 +43,6 @@ func (sfc *StaticFileComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 	if !strings.EqualFold(ctx.Request.URL.Path, sfc.urlPrefix) &&
 		strings.HasPrefix(ctx.Request.URL.Path, sfc.urlPrefix) {
 		sfc.stdLibHandler.ServeHTTP(ctx.ResponseWriter, ctx.Request)
-		return
 	} else {
 		next(ctx)
 	}

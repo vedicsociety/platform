@@ -37,12 +37,9 @@ func (c *AuthComponent) ProcessRequest(ctx *pipeline.ComponentContext,
 			ospassw, _ := c.Config.GetString("auth:password")
 			if osuser == user && ospassw == pass {
 				next(ctx)
-				return
 			}
 		}
-
 		ctx.ResponseWriter.Header().Set("WWW-Authenticate", `Basic realm="restricted", charset="UTF-8"`)
 		http.Error(ctx.ResponseWriter, "Unauthorized", 401)
 	}
-	next(ctx)
 }
