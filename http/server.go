@@ -23,8 +23,13 @@ type pipelineAdaptor struct {
 	pipeline.RequestPipeline
 }
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	}
+
 func (p pipelineAdaptor) ServeHTTP(writer http.ResponseWriter,
 	request *http.Request) {
+		enableCors(&writer)
 		
 	p.ProcessRequest(request, writer)
 }
