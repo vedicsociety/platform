@@ -76,7 +76,7 @@ func (router *RouterComponent) invokeHandler(route Route, rawParams []string,
 					})
 				if err == nil {
 					err = action.Execute(&actionresults.ActionContext{
-						context.Context(), context.ResponseWriter})
+						Context: context.Context(), ResponseWriter: context.ResponseWriter})
 				}
 			} else {
 				io.WriteString(context.ResponseWriter,
